@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .output {
+            margin-top: 30px;
+        }
+        .font-style {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Font Generator</h1>
+<input type="text" id="wordInput" placeholder="Enter a word">
+<button onclick="generateFonts()">Generate</button>
+
+<div class="output" id="outputArea"></div>
+
+<script>
+    function generateFonts() {
+        const word = document.getElementById('wordInput').value;
+        const outputArea = document.getElementById('outputArea');
+        outputArea.innerHTML = ''; // Clear previous output
+
+        // Array of different font styles
+        const fonts = [
+            "Arial",
+            "Verdana",
+            "Courier New",
+            "Georgia",
+            "Times New Roman",
+            "Comic Sans MS",
+            "Impact",
+            "Lucida Console",
+            "Trebuchet MS",
+            "Tahoma"
+        ];
+
+        // Generate styled words
+        fonts.forEach(font => {
+            const styledWord = document.createElement('div');
+            styledWord.className = 'font-style';
+            styledWord.style.fontFamily = font;
+            styledWord.textContent = word;
+            outputArea.appendChild(styledWord);
+        });
+    }
+</script>
+
+</body>
+</html>
