@@ -1,74 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unicode Mapper</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        input[type="text"] {
-            padding: 10px;
-            font-size: 16px;
-            width: 300px;
-        }
-        button {
-            padding: 10px 15px;
-            font-size: 16px;
-            margin-left: 10px;
-        }
-        .output {
-            margin-top: 30px;
-            font-size: 24px;
-            line-height: 1.5;
-        }
-        .special-font {
-            font-family: 'Caveat', cursive; /* Change this to your desired font */
-            font-size: 36px; /* Size of the special font */
-            background-color: purple; /* Highlight color */
-            color: white; /* Text color */
-            padding: 0 5px; /* Padding around the letter */
-            border-radius: 3px; /* Rounded corners */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Italic Serif Unicode Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+
+    #output {
+      font-family: "Times New Roman", serif;
+      font-style: italic;
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
+  <h1>Italic Serif Unicode Word Generator</h1>
+  <p>Enter a word below, and it will be transformed into italic serif Unicode!</p>
 
-<h1>Unicode Mapper</h1>
-<input type="text" id="wordInput" placeholder="Enter a word">
-<button onclick="generateUnicode()">Generate</button>
+  <input type="text" id="userInput" placeholder="Enter a word" oninput="convertToSerifItalicUnicode()">
+  <div id="output"></div>
 
-<div class="output" id="outputArea"></div>
+  <script>
+    function convertToSerifItalicUnicode() {
+      let input = document.getElementById('userInput').value;
+      let output = document.getElementById('output');
+      
+      // Mapping of regular characters to italic serif Unicode equivalents
+      const charMap = {
+        'a': '𝑎', 'b': '𝑏', 'c': '𝑐', 'd': '𝑑', 'e': '𝑒', 'f': '𝑓', 'g': '𝑔', 'h': 'ℎ',
+        'i': '𝑖', 'j': '𝑗', 'k': '𝑘', 'l': '𝑙', 'm': '𝑚', 'n': '𝑛', 'o': '𝑜', 'p': '𝑝',
+        'q': '𝑞', 'r': '𝑟', 's': '𝑠', 't': '𝑡', 'u': '𝑢', 'v': '𝑣', 'w': '𝑤', 'x': '𝑥',
+        'y': '𝑦', 'z': '𝑧',
+        'A': '𝐴', 'B': '𝐵', 'C': '𝐶', 'D': '𝐷', 'E': '𝐸', 'F': '𝐹', 'G': '𝐺', 'H': '𝐻',
+        'I': '𝐼', 'J': '𝐽', 'K': '𝐾', 'L': '𝐿', 'M': '𝑀', 'N': '𝑁', 'O': '𝑂', 'P': '𝑃',
+        'Q': '𝑄', 'R': '𝑅', 'S': '𝑆', 'T': '𝑇', 'U': '𝑈', 'V': '𝑉', 'W': '𝑊', 'X': '𝑋',
+        'Y': '𝑌', 'Z': '𝑍'
+      };
 
-<script>
-    function generateUnicode() {
-        const word = document.getElementById('wordInput').value;
-        const outputArea = document.getElementById('outputArea');
-        outputArea.innerHTML = ''; // Clear previous output
+      let italicText = '';
+      
+      // Loop through each character and replace it with its italic version if available
+      for (let i = 0; i < input.length; i++) {
+        let char = input[i];
+        italicText += charMap[char] || char; // Use the mapped character or the original if not found
+      }
 
-        // Map through each character of the word
-        for (let char of word) {
-            // Convert the character to its Unicode value
-            const unicode = char.charCodeAt(0).toString(16).toUpperCase();
-            // Create a span for the character
-            let span;
-
-            // Check if the character is 'n' (or modify this to highlight any specific character)
-            if (char === 'n' || char === 'N') {
-                span = `<span class="special-font">${char} (U+${unicode})</span>`;
-            } else {
-                span = `<span>${char} (U+${unicode})</span>`;
-            }
-
-            // Append the span to the output area
-            outputArea.innerHTML += span + ' ';
-        }
+      output.innerHTML = italicText;
     }
 </script>
-
 </body>
 </html>
