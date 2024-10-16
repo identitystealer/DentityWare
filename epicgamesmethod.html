@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Font Generator</title>
+    <title>Unicode Mapper</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
     <style>
         body {
@@ -23,10 +23,8 @@
         }
         .output {
             margin-top: 30px;
-        }
-        .font-style {
-            margin: 10px 0;
             font-size: 24px;
+            line-height: 1.5;
         }
         .special-font {
             font-family: 'Caveat', cursive; /* Change this to your desired font */
@@ -40,34 +38,35 @@
 </head>
 <body>
 
-<h1>Font Generator</h1>
+<h1>Unicode Mapper</h1>
 <input type="text" id="wordInput" placeholder="Enter a word">
-<button onclick="generateFonts()">Generate</button>
+<button onclick="generateUnicode()">Generate</button>
 
 <div class="output" id="outputArea"></div>
 
 <script>
-    function generateFonts() {
+    function generateUnicode() {
         const word = document.getElementById('wordInput').value;
         const outputArea = document.getElementById('outputArea');
         outputArea.innerHTML = ''; // Clear previous output
 
-        // Generate styled word
-        const highlightedWord = word.split('').map(letter => {
-            // Check if the letter is 'n' (case-insensitive)
-            if (letter.toLowerCase() === 'n') {
-                return `<span class="special-font">${letter}</span>`; // Special styling
+        // Map through each character of the word
+        for (let char of word) {
+            // Convert the character to its Unicode value
+            const unicode = char.charCodeAt(0).toString(16).toUpperCase();
+            // Create a span for the character
+            let span;
+
+            // Check if the character is 'n' (or modify this to highlight any specific character)
+            if (char === 'n' || char === 'N') {
+                span = `<span class="special-font">${char} (U+${unicode})</span>`;
+            } else {
+                span = `<span>${char} (U+${unicode})</span>`;
             }
-            return letter; // Normal letter
-        }).join('');
 
-        // Create a new div to display the styled word
-        const styledWord = document.createElement('div');
-        styledWord.className = 'font-style';
-        styledWord.innerHTML = highlightedWord;
-
-        // Append the styled word to the output area
-        outputArea.appendChild(styledWord);
+            // Append the span to the output area
+            outputArea.innerHTML += span + ' ';
+        }
     }
 </script>
 
